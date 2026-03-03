@@ -3,10 +3,10 @@ from app.database import Base
 from sqlalchemy.orm import relationship
 
 class Veiculo(Base):
-    __tablename__ = "Veiculos"
-    id = Column(String, nullable=False)
+    __tablename__ = "veiculos"
+    id = Column(Integer, primary_key=True, index=True)
     modelo = Column(String, nullable=False)
     motor = Column(String, nullable=False)
     placa = Column(String, nullable=False)
     quilometragem = Column(String, nullable=False)
-    agendamentos = relationship("Agendamento", back_populates="veiculo")
+    agendamento = relationship("Agendamento", back_populates="veiculo")

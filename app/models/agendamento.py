@@ -4,7 +4,7 @@ from sqlalchemy.orm import relationship
 
 class Agendamento(Base):
     __tablename__ = "Agendamento"
-    id = Column(String, nullable=False)
+    id = Column(Integer, primary_key=True, index=True)
     data_hora = Column(DateTime, nullable=False)
     servico = Column(String, nullable=False)
     cliente_id = Column(Integer, ForeignKey("clientes.id"), nullable=False)
