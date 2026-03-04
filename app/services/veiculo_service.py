@@ -9,7 +9,7 @@ def create_veiculo(db: Session, veiculo: VeiculoCreate) -> Veiculo:
         placa=veiculo.placa,
         ano=veiculo.ano,
         motor=veiculo.motor,
-        quilometraqgem=veiculo.quilometragem,
+        quilometragem=veiculo.quilometragem,
         cliente_id=veiculo.cliente_id
     )
     db.add(db_veiculo)
@@ -18,20 +18,20 @@ def create_veiculo(db: Session, veiculo: VeiculoCreate) -> Veiculo:
     return db_veiculo
 
 def get_veiculo(db: Session, placa: str) -> Veiculo | None:
-    db_veiculo = Veiculo(
+    db_veiculo = (
         db.query(Veiculo)
         .filter(Veiculo.placa == placa)
         .first()
     )
-    if not Veiculo:
+    if not db_veiculo:
         return False
     
     return db_veiculo
 
-def update_veiculo_placa(db: Session, veiculo: VeiculoUpdate, nova_placa: str):
-     db_veiculo = Veiculo(
+def update_veiculo_placa(db: Session, veiculo: VeiculoUpdate, nova_placa: str, placa_atual: str):
+     db_veiculo = (
         db.query(Veiculo)
-        .filter(Veiculo.placa == placa)
+        .filter(Veiculo.placa == placa_atual)
         .first()
     )
      if not Veiculo:
@@ -42,15 +42,29 @@ def update_veiculo_placa(db: Session, veiculo: VeiculoUpdate, nova_placa: str):
      db.refresh(db_veiculo)
      return db_veiculo
  
-def update_veiculo_quilometragem(db: Session, nova_quilometragem: int):
-     db_veiculo = Veiculo(
+def update_veiculo_quilometragem(db: Session, nova_quilometragem: int, placa: str):
+     db_veiculo = (
         db.query(Veiculo)
         .filter(Veiculo.placa == placa)
         .first()
     )
-     if not Veiculo:
+     if not db_veiculo:
          return False
      db_veiculo.quilometragem = nova_quilometragem
      db.commit()
      db.refresh(db_veiculo)
      return db_veiculo
+ 
+ 
+def delete_veiculo(db: Session, placa: str):
+    db_veiculo = (
+        db.query(Veiculo)
+        .filter(Veiculo.placa == placa)
+        .first()
+    )
+    if not db_veiculo:
+         return False
+     
+    db.delete(db_veiculo)
+    db.commit()
+    return True

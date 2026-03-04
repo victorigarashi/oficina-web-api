@@ -5,8 +5,8 @@ class VeiculoBase(BaseModel):
     modelo: str
     ano: int
     motor: Optional[str]
-    placa: Optional[str]
-    quilometragem: Optional[int]
+    placa: str
+    quilometragem: int
 
 class VeiculoCreate(VeiculoBase):
     cliente_id: int
