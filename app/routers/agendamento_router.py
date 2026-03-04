@@ -10,14 +10,9 @@ router = APIRouter(
     tags=["agendamento"]
 )
 
-@router.post("/", response_model=[AgendamentoOutput],status_code=status.HTTP_201_CREATED)
+@router.post("/", response_model=AgendamentoOutput,status_code=status.HTTP_201_CREATED)
 def create_agendamento(agendamento: AgendamentoCreate, db: Session = Depends(get_db)):
     return agendamento_service.create_agendamento(db, agendamento)
-
-
-@router.get("/", response_model=list[AgendamentoOutput]) # lista todos os agendamentos
-def list_agendamento(db: Session = Depends(get_db)):
-    return agendamento_service.get_agendamento(db)
 
 
 @router.get("/{agendamento_id}", response_model=AgendamentoOutput) # busca apenas um agendamento

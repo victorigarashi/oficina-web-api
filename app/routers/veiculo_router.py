@@ -15,11 +15,6 @@ def create_veiculo(veiculo: VeiculoCreate, db: Session = Depends(get_db)):
     return veiculo_service.create_veiculo(db, veiculo)
 
 
-@router.get("/", response_model=list[VeiculoOutput]) #lista todos os veiculos
-def list_veiculos(db: Session = Depends(get_db)):
-    return veiculo_service.list_veiculos(db)
-
-
 @router.get("/{veiculo_id}", response_model=VeiculoOutput)
 def get_veiculo(veiculo_id: int, db: Session = Depends(get_db)):
     veiculo = veiculo_service.get_veiculo_by_id(db, veiculo_id)

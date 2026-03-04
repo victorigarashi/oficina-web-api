@@ -3,7 +3,7 @@ from app.database import Base
 from sqlalchemy.orm import relationship
 
 class Cliente(Base):
-    __tablename__ ="Clientes"
+    __tablename__ ="clientes"
     id = Column(Integer, primary_key=True, index=True)
     nome = Column(String, nullable=False)
     telefone = Column(String, nullable=False)

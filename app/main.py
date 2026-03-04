@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from app.database import Base, engine
 from app.routers import agendamento_router, veiculo_router, cliente_router
+from app.models import cliente, agendamento, veiculo
 
 app = FastAPI(
     title="API oficina",

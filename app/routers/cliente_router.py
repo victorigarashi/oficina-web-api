@@ -15,11 +15,6 @@ def create_cliente(cliente: ClienteCreate, db: Session = Depends(get_db)):
     return cliente_service.create_cliente(db, cliente)
 
 
-@router.get("/", response_model=list[ClienteOutput]) #lista todos os clientes
-def list_cliente(db: Session = Depends(get_db)):
-    return cliente_service.get_cliente(db)
-
-
 @router.get("/{cliente_id}", response_model=ClienteOutput) #busca apenas um cliente
 def get_cliente(cliente_id: int, db: Session = Depends(get_db)):
     cliente = cliente_service.get_cliente_by_id(db, cliente_id)
